@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CapCut 오디오 스펙트럼 메이커</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>CapCut용 오디오 스펙트럼 메이커</h1>
+        <p>
+          WAV 여러 곡을 순서대로 관리하고, 미리듣기/배치 렌더링으로 CapCut에 넣을
+          수 있는 스펙트럼 소스를 만듭니다.
+        </p>
+      </header>
+
+      <section class="controls top-controls">
+        <label class="file-picker" for="wav-input">WAV 파일 선택</label>
+        <input id="wav-input" type="file" accept=".wav,audio/wav" multiple />
+        <button id="preview-btn" disabled>현재 곡 미리재생</button>
+        <button id="batch-btn" disabled>순서대로 스펙트럼 만들기</button>
+        <button id="stop-btn" disabled>중지</button>
+      </section>
+
+      <section class="layout-grid">
+        <article class="panel">
+          <h2>곡 목록 / 순서</h2>
+          <ul id="playlist" class="playlist">
+            <li class="placeholder">아직 선택된 WAV 파일이 없습니다.</li>
+          </ul>
+          <div class="playlist-actions">
+            <button id="move-up-btn" disabled>위로</button>
+            <button id="move-down-btn" disabled>아래로</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2>비주얼 설정</h2>
+          <div class="settings-grid">
+            <label>배경
+              <select id="bg-mode">
+                <option value="black">매트릭스 블랙</option>
+                <option value="green">크로마키 그린</option>
+              </select>
+            </label>
+            <label>형태
+              <select id="shape-mode">
+                <option value="bars">바(막대)</option>
+                <option value="circle">원형</option>
+              </select>
+            </label>
+            <label>색상 방식
+              <select id="color-mode">
+                <option value="spectrum">스펙트럼 효과</option>
+                <option value="custom">단일 색상</option>
+              </select>
+            </label>
+            <label>단일 색상
+              <input id="custom-color" type="color" value="#71f5c7" />
+            </label>
+            <label>투명도
+              <input id="opacity" type="range" min="0.1" max="1" step="0.05" value="0.9" />
+            </label>
+            <label>바 개수
+              <input id="bar-count" type="number" min="16" max="512" step="1" value="96" />
+            </label>
+            <label>가로(px)
+              <input id="canvas-width" type="number" min="320" max="3840" step="10" value="1280" />
+            </label>
+            <label>세로(px)
+              <input id="canvas-height" type="number" min="240" max="2160" step="10" value="720" />
+            </label>
+            <label>정렬 방식
+              <select id="layout-mode">
+                <option value="ltr">왼쪽 → 오른쪽</option>
+                <option value="mirror">대칭형</option>
+              </select>
+            </label>
+            <label>최소 높이 증폭
+              <input id="min-boost" type="range" min="0" max="120" step="1" value="12" />
+            </label>
+            <label>최대 높이 증폭
+              <input id="max-boost" type="range" min="100" max="400" step="1" value="280" />
+            </label>
+            <label class="checkbox">
+              <input id="reflection" type="checkbox" checked /> 수면 반사 효과
+            </label>
+            <label class="checkbox">
+              <input id="record-video" type="checkbox" checked /> 렌더 시 WEBM 저장
+            </label>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel canvas-panel">
+        <canvas id="spectrum" width="1280" height="720"></canvas>
+      </section>
+
+      <section class="panel progress-panel">
+        <h2>진행 상황</h2>
+        <p id="current-track">현재 작업: 없음</p>
+        <progress id="track-progress" max="1" value="0"></progress>
+        <p id="status" class="status">WAV 파일을 선택해 주세요.</p>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
