@@ -1,0 +1,27 @@
+{
+  "input_audio": "input/song.wav",
+  "output_video": "output/song_spectrum.mp4",
+
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+
+  "bars": 96,
+  "fft_size": 4096,
+  "min_hz": 30,
+  "max_hz": 16000,
+
+  "background_bgr": [0, 255, 0],
+  "bar_color_bgr": [245, 245, 245],
+
+  "horizontal_padding": 180,
+  "bottom_margin": 120,
+  "max_bar_height": 430,
+  "min_bar_height": 6,
+  "bar_gap": 4,
+
+  "attack_smoothing": 0.6,
+  "release_smoothing": 0.15,
+  "neighbor_smoothing_radius": 2,
+  "visual_power": 0.75
+}
